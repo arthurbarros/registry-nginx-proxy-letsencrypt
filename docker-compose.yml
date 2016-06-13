@@ -1,4 +1,9 @@
 version: '2'
+
+networks:
+  default:
+    driver: bridge
+
 services:
   proxy:
     image: jwilder/nginx-proxy
@@ -24,12 +29,19 @@ services:
     volumes:
       - /opt/docker/registry-nginx-proxy-letsencrypt/volumes/nginx-certs:/etc/nginx/certs:rw
       - /var/run/docker.sock:/var/run/docker.sock:ro
-    depends_on: 
-      - proxy
     networks:
       - default
     restart: always
 
-networks:
-  default:
-    driver: bridge
+  registry:
+    image: registry:2.2
+    depends_on: 
+      - proxy
+    environment:
+      - VIRTUAL_HOST=registry.arthurbarros.com
+    volumes:
+      - /opt/docker/registry-nginx-proxy-letsencrypt/volumes/registry/config/config.yml:/etc/docker/registry/config.yml
+    networks:
+      - default
+    restart: always
+    

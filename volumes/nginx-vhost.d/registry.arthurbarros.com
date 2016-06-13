@@ -1,0 +1,28 @@
+client_max_body_size 0;  
+chunked_transfer_encoding on;
+
+location /v2/ {  
+  # Do not allow connections from docker 1.5 and earlier
+  # docker pre-1.6.0 did not properly set the user agent on ping, catch "Go *" user agents
+  if ($http_user_agent ~ "^(docker\/1\.(3|4|5(?!\.[0-9]-dev))|Go ).*$" ) {
+    return 404;
+  }
+
+  add_header Docker-Distribution-Api-Version "registry/2.0";
+  #more_set_headers     'Content-Type: application/json; charset=utf-8';
+  include               vhost.d/docker-registry.conf;
+}
+
+location /v1/_ping {  
+  auth_basic off;
+  include               vhost.d/docker-registry.conf;
+  add_header X-Ping     "inside /v1/_ping";
+  add_header X-Ping     "INSIDE /v1/_ping";
+}
+
+location /v1/users {  
+  auth_basic off;
+  include               vhost.d/docker-registry.conf;
+  add_header X-Users    "inside /v1/users";
+  add_header X-Users    "INSIDE /v1/users";
+}

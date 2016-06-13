@@ -1,0 +1,15 @@
+version: 0.1  
+log:  
+    level: info
+    formatter: json
+    fields:
+        service: registry
+        environment: staging
+        source: registry
+http:  
+    addr: :5000
+    host: registry.arthurbarros.com
+    secret: biglongsecretwhatever
+storage:  
+    filesystem:
+        rootdirectory: /var/lib/registry
