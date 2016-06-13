@@ -38,11 +38,12 @@ services:
     depends_on: 
       - proxy
     environment:
-      - VIRTUAL_HOST=registry.arthurbarros.com
-      - LETSENCRYPT_HOST=registry.arthurbarros.com
-      - LETSENCRYPT_EMAIL=arthbarros@gmail.com
+      - VIRTUAL_HOST={{domain_name}}
+      - LETSENCRYPT_HOST={{domain_name}}
+      - LETSENCRYPT_EMAIL={{letsencrypt_email}}
     volumes:
       - /opt/docker/registry-nginx-proxy-letsencrypt/volumes/registry/config/config.yml:/etc/docker/registry/config.yml
+      - /opt/docker/registry-data/lib/registry:/var/lib/registry 
     networks:
       - default
     restart: always

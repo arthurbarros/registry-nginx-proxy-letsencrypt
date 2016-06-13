@@ -8,8 +8,8 @@ log:
         source: registry
 http:  
     addr: :5000
-    host: registry.arthurbarros.com
-    secret: biglongsecretwhatever
+    host: {{domain_name}}
+    secret: {{http_secret}}
 storage:  
     filesystem:
         rootdirectory: /var/lib/registry
