@@ -39,6 +39,8 @@ services:
       - proxy
     environment:
       - VIRTUAL_HOST=registry.arthurbarros.com
+      - LETSENCRYPT_HOST=registry.arthurbarros.com
+      - LETSENCRYPT_EMAIL=arthbarros@gmail.com
     volumes:
       - /opt/docker/registry-nginx-proxy-letsencrypt/volumes/registry/config/config.yml:/etc/docker/registry/config.yml
     networks:
