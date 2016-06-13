@@ -1,0 +1,35 @@
+version: '2'
+services:
+  proxy:
+    image: jwilder/nginx-proxy
+    volumes:
+      - /opt/docker/registry-nginx-proxy-letsencrypt/volumes/nginx-certs:/etc/nginx/certs:ro
+      - /opt/docker/registry-nginx-proxy-letsencrypt/volumes/nginx-vhost.d:/etc/nginx/vhost.d
+      - /opt/docker/registry-nginx-proxy-letsencrypt/volumes/htpasswd:/etc/nginx/htpasswd
+      - /usr/share/nginx/html
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - default
+    restart: always
+
+  companion_proxy:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    depends_on: 
+      - proxy
+    volumes_from:
+      - proxy
+    volumes:
+      - /opt/docker/registry-nginx-proxy-letsencrypt/volumes/nginx-certs:/etc/nginx/certs:rw
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    depends_on: 
+      - proxy
+    networks:
+      - default
+    restart: always
+
+networks:
+  default:
+    driver: bridge
