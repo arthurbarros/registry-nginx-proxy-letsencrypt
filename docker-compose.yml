@@ -48,7 +48,6 @@ services:
       - REGISTRY_STORAGE_SWIFT_CONTAINER='docker-registry'
     volumes:
       - /opt/docker/registry-nginx-proxy-letsencrypt/volumes/registry/config/config.yml:/etc/docker/registry/config.yml
-      - /opt/docker/registry-data/lib/registry:/var/lib/registry 
     networks:
       - default
     restart: always
