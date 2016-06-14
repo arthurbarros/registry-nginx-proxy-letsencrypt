@@ -41,6 +41,11 @@ services:
       - VIRTUAL_HOST={{domain_name}}
       - LETSENCRYPT_HOST={{domain_name}}
       - LETSENCRYPT_EMAIL={{letsencrypt_email}}
+      - REGISTRY_STORAGE='swift'
+      - REGISTRY_STORAGE_SWIFT_AUTHURL='https://dal05.objectstorage.softlayer.net/auth/v1.0/'
+      - REGISTRY_STORAGE_SWIFT_USERNAME='SLOS559465-2:arthurb'
+      - REGISTRY_STORAGE_SWIFT_PASSWORD='4c7e1457f8154ed8bc044402fc3c2b152c98c4ea5e185e5596a5351e8d81f7e0'
+      - REGISTRY_STORAGE_SWIFT_CONTAINER='docker-registry'
     volumes:
       - /opt/docker/registry-nginx-proxy-letsencrypt/volumes/registry/config/config.yml:/etc/docker/registry/config.yml
       - /opt/docker/registry-data/lib/registry:/var/lib/registry 
