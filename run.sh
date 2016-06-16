@@ -12,6 +12,6 @@ sed -i -e "s/{{domain_name}}/$DOMAIN_NAME/g" /opt/docker/registry-nginx-proxy-le
 sed -i -e "s/{{domain_name}}/$DOMAIN_NAME/g" /opt/docker/registry-nginx-proxy-letsencrypt/docker-compose.yml
 sed -i -e "s/{{letsencrypt_email}}/$LETSENCRYPT_EMAIL/g" /opt/docker/registry-nginx-proxy-letsencrypt/docker-compose.yml
 
-htpasswd -bc volumes/htpasswd/registry.podevski.com jenkins $HTPASS
+htpasswd -bc volumes/htpasswd/$DOMAIN_NAME jenkins $HTPASS
 
 echo "done"
